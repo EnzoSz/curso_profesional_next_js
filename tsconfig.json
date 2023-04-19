@@ -17,6 +17,9 @@
     "incremental": true,
     "paths": {
       "@styles/*": ["styles/*"],
+      "@common/*": ["common/*"],
+      "@components/*": ["components/*"],
+      "@layout/*": ["layout/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_app.js", "src/pages/index.js", "src/pages/api/hello.js"],
