@@ -1,25 +1,32 @@
-import React, {useState, useContext, createContext} from "react";
-import Cookies from "js-cookie";
-import axios from "axios";
+import React, { useState, useContext, createContext } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import endPoints from '@services/api/';
+const AuthContext = createContext();
 
-const AuthContext = createContext({children});
-
-export function ProviderAuth({children}){
-    const auth = useProvideAuth();
-    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;   
+export function ProviderAuth({ children }) {
+  const auth = useProvideAuth();
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 };
 
 function useProvideAuth() {
-    const [user, setUser] = useState(null);
-    const singIn = async (email, password) => {
-        setUser('login');
-    }
-    return {
-        user,
-        singIn,
+  const [user, setUser] = useState(null);
+  const singIn = async (email, password) => {
+    const options = {
+      headers: {
+        accept: '*/*',
+        'Content-Type': 'application/json',
+      },
     };
+    const { data: access_token } = await axios.post(endPoints.auth.login, { email, password }, options);
+    console.log(access_token);
+  };
+  return {
+    user,
+    singIn,
+  };
 }
