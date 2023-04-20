@@ -20,6 +20,8 @@
       "@common/*": ["common/*"],
       "@components/*": ["components/*"],
       "@layout/*": ["layout/*"],
+      "@hooks/*": ["hooks/*"],
+      "@services/*": ["services/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_app.js", "src/pages/index.js", "src/pages/api/hello.js"],
