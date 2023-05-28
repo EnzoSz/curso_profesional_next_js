@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { BeakerIcon } from '@heroicons/react/24/solid';
+import { BeakerIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import Modal from '@common/Modal';
 import FromProduct from '@components/FormProduct';
 import axios from 'axios';
 import endPoints from '@services/api';
 import useAlert from '@hooks/useAlert';
 import Alert from '@common/Alert';
+import { deleteProduct } from '@services/api/products';
 
 export default function Products() {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,18 @@ export default function Products() {
   useEffect(() => {
     getProducts();
   }, [alert]);
+
+  const handleDelete = (id) => {
+    deleteProduct(id).then(() => {
+      setAlert({
+        active: true,
+        message: 'Delete product successfully',
+        type: 'error',
+        autoClose: true,
+      });
+    });
+  };
+
   return (
     <>
       <Alert alert={alert} handleClose={toggleAlert} />
@@ -98,9 +111,7 @@ export default function Products() {
                         </a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="/edit" className="text-indigo-600 hover:text-indigo-900">
-                          Delete
-                        </a>
+                        <XCircleIcon className="flex-shrink-0 h6 w-6 text-gray-400 cursor-pointer" aria-hidden="true" onClick={() => handleDelete(product.id)} />
                       </td>
                     </tr>
                   ))}
